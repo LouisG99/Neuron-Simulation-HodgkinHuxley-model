@@ -1,0 +1,830 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Final Project }
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \subsection{Hodgkin-Huxley model}\label{hodgkin-huxley-model}
+
+\subsubsection{intro or smth like that}\label{intro-or-smth-like-that}
+
+\subsection{Notes for the moment}\label{notes-for-the-moment}
+
+\subsubsection{Notes on description of
+model}\label{notes-on-description-of-model}
+
+Models formlates current such that: * \(\displaystyle \sum_{k}^{}\)Ik =
+gNa m\^{}3 h (u - ENa) + gK n\^{}4 (u - EK) + gL (u - EL).
+
+If all channels open, transmit current with max conductance gNa and gK
+respectively (other channel has constant conductance given as 1/R)
+
+ENa, EK and EL, AND the conducatances are empirical parameters, and are
+the reversal potentials:
+
+Reversal potential: reversal potential of an ion is membrane potential
+at which no net low of that particular ion fom one side of membrane to
+the other
+
+Original value of these parameters reported by Hodgkin and Huxley are
+given on website
+http://icwww.epfl.ch/\textasciitilde{}gerstner/SPNM/node14.html. NOTE:
+need to shift voltage values by -65mV because those were given with a
+resting potential assumed to be 0, but not the case
+
+\paragraph{m, n and h:}\label{m-n-and-h}
+
+are called the "gating variables" and evolve according to differential
+eqs (given on websit). Those equations include alpha and beta factors
+that both are expressions of the membrane volatage mu.
+
+\subsubsection{Notes on dynamics of
+model}\label{notes-on-dynamics-of-model}
+
+m and n increase with mu, while h decrease (graph of this to support it)
+
+-\/-\textgreater{} if some external input cause membrane voltage mu to
+rise, conductance of Na channels increase -\/-\textgreater{} positive Na
+ions flow into cell and raise even further membrane potential mu. If
+large enough -\/-\textgreater{} action potential initiated.
+
+Threshold type behavior:action potential (which is a traveling spike in
+membrane potential) is initiated by a peak in current. If that peak in
+current is not high enough, don't get high large-soike excursion, but
+just small var.
+
+Pulling the membrane voltage back down:the K+ channel is outward so when
+open, it lowers potential. -\/-\textgreater{} Overall effect is large
+spike in potential, and then h factor and K+ channel pull it back down
+(with a temp overshoot since temporarly get potential below rest
+potential.
+
+With constant input current: if I larger than some critical value known
+(I\_theta) observe regular spiking in membrane potential.
+
+Step current input: whether triggers action potential or not depends on
+both the constant current value and the spike value too.
+
+Interesting element, refratoriness: during hyperpolarization period
+followed action potential due to input current, neuron incapable of
+reacting to same input current
+
+\subsubsection{What type of current input is associated with vision
+stimulus from
+retina?}\label{what-type-of-current-input-is-associated-with-vision-stimulus-from-retina}
+
+\paragraph{Additional Notes:}\label{additional-notes}
+
+Also need to figure out:
+
+\begin{verbatim}
+<li>Do I have to take into account the what happens with synapses too?</li>
+<li>How much time needed to send response signal once signal reached brain?</li>
+<li>How long is the path from retina to brain and from brain to right arm?</li>
+<li><b>Example situation that will be chosen for project:</b> to make things more dramatic, will assume you are in a boxing match, and see your opponent's arm starting to move towards your face. Assume arm moving at 5 m/s (maybe change that val later), assuming separation between you two is 1.5m, at what distance from your face will arm be when start reacting?</li>
+<li>Ask papa for length of neuronal path, time for brain to analyze signal, what happens in synapses, etc</li>
+</ul>
+\end{verbatim}
+
+\subsubsection{Setup so far:}\label{setup-so-far}
+
+\begin{verbatim}
+<li>Decided would start by modeling one neuron with length <i>1 cm</i></li>
+<li>Seems like each cicuit represents a part of the axon <b><i>parallel</i></b> to the direction the signal is being transmitted --> pick axon length, number of segments to cut it in, and associate a distinct ciruit with each of those (need to store the different parameters associated with each of them --> make a class that contains all variables need for circuit and make array of instances of that object). </li> 
+<li>What wanna "plot"/see evolve is the membrane voltage. Relation with current given on website --> calculate current to get mu. 
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}              \PY{c+c1}{\PYZsh{}\PYZsh{} numpy is a library that inclues most of the numerical funciton you will need}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt} \PY{c+c1}{\PYZsh{}\PYZsh{} this is the library we use to plot}
+        \PY{k+kn}{from} \PY{n+nn}{math} \PY{k}{import} \PY{n}{exp}            \PY{c+c1}{\PYZsh{}\PYZsh{} used for diff eq of the Hodgkin\PYZhy{}Huxley model}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k}{class} \PY{n+nc}{HHcircuit}\PY{p}{:} \PY{c+c1}{\PYZsh{} Representation of the circuit of the HH model, physically represents }
+                         \PY{c+c1}{\PYZsh{} membrane and ion channels of a neuron fiber}
+                
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{gNa}\PY{p}{,} \PY{n}{gK}\PY{p}{,} \PY{n}{gL}\PY{p}{,} \PY{n}{C}\PY{p}{,} \PY{n}{mu}\PY{p}{,} \PY{n}{E\PYZus{}Na}\PY{p}{,} \PY{n}{E\PYZus{}K}\PY{p}{,} \PY{n}{E\PYZus{}L}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{} constructor}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{gNa} \PY{o}{=} \PY{n}{gNa}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{gK} \PY{o}{=} \PY{n}{gK}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{gL} \PY{o}{=} \PY{n}{gL}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{m} \PY{o}{=} \PY{l+m+mf}{0.0}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n} \PY{o}{=} \PY{l+m+mf}{0.0}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{h} \PY{o}{=} \PY{l+m+mf}{0.0}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{C} \PY{o}{=} \PY{n}{C}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mu} \PY{o}{=} \PY{n}{mu}
+                
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{E\PYZus{}Na} \PY{o}{=} \PY{n}{E\PYZus{}Na}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{E\PYZus{}K} \PY{o}{=} \PY{n}{E\PYZus{}K}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{E\PYZus{}L} \PY{o}{=} \PY{n}{E\PYZus{}L}
+                
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{recorded\PYZus{}mu} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                
+            \PY{k}{def} \PY{n+nf}{update\PYZus{}m}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{dt}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{} updates m using diff eqs of HH model}
+                \PY{n}{alpha\PYZus{}m} \PY{o}{=} \PY{p}{(}\PY{l+m+mf}{2.5}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.1}\PY{o}{*}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mu}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{exp}\PY{p}{(}\PY{l+m+mf}{2.5}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.1}\PY{o}{*}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mu}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{)}
+                \PY{n}{beta\PYZus{}m} \PY{o}{=} \PY{l+m+mi}{4}\PY{o}{*}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mu} \PY{o}{/} \PY{l+m+mi}{18}\PY{p}{)}
+                \PY{n}{dm} \PY{o}{=} \PY{n}{dt} \PY{o}{*} \PY{p}{(}\PY{n}{alpha\PYZus{}m}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{m}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{beta\PYZus{}m}\PY{o}{*}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{m}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{m} \PY{o}{+}\PY{o}{=} \PY{n}{dm}
+                \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{m}
+            
+            \PY{k}{def} \PY{n+nf}{update\PYZus{}n}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{dt}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{} updates n using diff eqs of HH model}
+                \PY{n}{alpha\PYZus{}n} \PY{o}{=} \PY{p}{(}\PY{l+m+mf}{0.1}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.01}\PY{o}{*}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mu}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{exp}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.1}\PY{o}{*}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mu}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{)}
+                \PY{n}{beta\PYZus{}n} \PY{o}{=} \PY{l+m+mf}{0.125}\PY{o}{*}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mu} \PY{o}{/} \PY{l+m+mi}{80}\PY{p}{)}
+                \PY{n}{dn} \PY{o}{=} \PY{n}{dt} \PY{o}{*} \PY{p}{(}\PY{n}{alpha\PYZus{}n}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{beta\PYZus{}n}\PY{o}{*}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n} \PY{o}{+}\PY{o}{=} \PY{n}{dn}
+                \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n}
+            
+            \PY{k}{def} \PY{n+nf}{update\PYZus{}h}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{dt}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{} updates h using diff eqs of HH model}
+                \PY{n}{alpha\PYZus{}h} \PY{o}{=} \PY{l+m+mf}{0.07}\PY{o}{*}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mu} \PY{o}{/} \PY{l+m+mi}{20}\PY{p}{)}
+                \PY{n}{beta\PYZus{}h} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{/} \PY{p}{(}\PY{n}{exp}\PY{p}{(}\PY{l+m+mi}{3}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.1}\PY{o}{*}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mu}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+                \PY{n}{dh} \PY{o}{=} \PY{n}{dt} \PY{o}{*} \PY{p}{(}\PY{n}{alpha\PYZus{}h}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{h}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{beta\PYZus{}h}\PY{o}{*}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{h}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{h} \PY{o}{+}\PY{o}{=} \PY{n}{dh}
+                \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{h}
+            
+            \PY{k}{def} \PY{n+nf}{sum\PYZus{}I\PYZus{}channels}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{} returns current through capacitor }
+                \PY{n}{s} \PY{o}{=} \PY{l+m+mi}{0}
+                \PY{n}{s} \PY{o}{+}\PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{gNa}\PY{o}{*} \PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{m}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3} \PY{o}{*}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{h}\PY{o}{*}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mu}\PY{o}{\PYZhy{}}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{E\PYZus{}Na}\PY{p}{)}
+                \PY{n}{s} \PY{o}{+}\PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{gK}\PY{o}{*} \PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{4} \PY{o}{*}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mu}\PY{o}{\PYZhy{}}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{E\PYZus{}K}\PY{p}{)}
+                \PY{n}{s} \PY{o}{+}\PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{gL}\PY{o}{*}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mu} \PY{o}{\PYZhy{}} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{E\PYZus{}L}\PY{p}{)}
+                \PY{k}{return} \PY{n}{s}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Numerical values, obtained from experiments}
+        
+        \PY{c+c1}{\PYZsh{} non shifted values}
+        \PY{n}{E\PYZus{}Na} \PY{o}{=} \PY{l+m+mf}{115.0} \PY{c+c1}{\PYZsh{} mV}
+        \PY{n}{E\PYZus{}K} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mf}{12.0}
+        \PY{n}{E\PYZus{}L} \PY{o}{=} \PY{l+m+mf}{10.6}
+        \PY{n}{gNa} \PY{o}{=} \PY{l+m+mf}{120.0} \PY{c+c1}{\PYZsh{} mS/cm\PYZca{}2}
+        \PY{n}{gK} \PY{o}{=} \PY{l+m+mf}{36.0}
+        \PY{n}{gL} \PY{o}{=} \PY{l+m+mf}{0.3}
+        \PY{n}{mu0} \PY{o}{=} \PY{l+m+mf}{0.0} \PY{c+c1}{\PYZsh{} assumes rest potential of membrane is 0mV}
+        
+        \PY{c+c1}{\PYZsh{} \PYZsh{} C\PYZus{}rate = 1.0  \PYZsh{} microFarads / cm\PYZca{}2}
+        \PY{c+c1}{\PYZsh{} C = 2.0 \PYZsh{} to verify}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k}{def} \PY{n+nf}{run\PYZus{}experiment}\PY{p}{(}\PY{n}{T}\PY{p}{,} \PY{n}{I\PYZus{}peak}\PY{p}{,} \PY{n}{C}\PY{p}{)}\PY{p}{:} 
+            \PY{n}{neuron} \PY{o}{=} \PY{n}{HHcircuit}\PY{p}{(}\PY{n}{gNa}\PY{p}{,} \PY{n}{gK}\PY{p}{,} \PY{n}{gL}\PY{p}{,} \PY{n}{C}\PY{p}{,} \PY{n}{mu0}\PY{p}{,} \PY{n}{E\PYZus{}Na}\PY{p}{,} \PY{n}{E\PYZus{}K}\PY{p}{,} \PY{n}{E\PYZus{}L}\PY{p}{)}
+            \PY{n}{recorded\PYZus{}mu} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{n}{times} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        
+            \PY{n}{t\PYZus{}steps} \PY{o}{=} \PY{l+m+mi}{10000}
+            \PY{n}{dt} \PY{o}{=} \PY{n}{T} \PY{o}{/} \PY{n}{t\PYZus{}steps}
+            \PY{n}{t} \PY{o}{=} \PY{l+m+mf}{0.0} \PY{c+c1}{\PYZsh{} ms}
+        
+            \PY{n}{first\PYZus{}pass} \PY{o}{=} \PY{k+kc}{False} \PY{c+c1}{\PYZsh{} enables to have a current peak of duration dt only}
+        
+            \PY{c+c1}{\PYZsh{}temp }
+            \PY{n}{I\PYZus{}channels} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{t\PYZus{}steps}\PY{p}{)}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{} update HH model coefficients}
+                \PY{n}{neuron}\PY{o}{.}\PY{n}{update\PYZus{}n}\PY{p}{(}\PY{n}{dt}\PY{p}{)}
+                \PY{n}{neuron}\PY{o}{.}\PY{n}{update\PYZus{}m}\PY{p}{(}\PY{n}{dt}\PY{p}{)}
+                \PY{n}{neuron}\PY{o}{.}\PY{n}{update\PYZus{}h}\PY{p}{(}\PY{n}{dt}\PY{p}{)}
+        
+                \PY{c+c1}{\PYZsh{} Update voltage through Capacitor (membrane)}
+                \PY{n}{sum\PYZus{}currents} \PY{o}{=} \PY{n}{I\PYZus{}peak} \PY{o}{\PYZhy{}} \PY{n}{neuron}\PY{o}{.}\PY{n}{sum\PYZus{}I\PYZus{}channels}\PY{p}{(}\PY{p}{)}
+        
+                \PY{n}{d\PYZus{}mu} \PY{o}{=} \PY{n}{sum\PYZus{}currents} \PY{o}{/} \PY{n}{neuron}\PY{o}{.}\PY{n}{C} \PY{o}{*} \PY{n}{dt}
+                \PY{n}{neuron}\PY{o}{.}\PY{n}{mu} \PY{o}{+}\PY{o}{=} \PY{n}{d\PYZus{}mu}
+        
+                \PY{c+c1}{\PYZsh{} save and update data}
+                \PY{n}{recorded\PYZus{}mu}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{neuron}\PY{o}{.}\PY{n}{mu}\PY{p}{)}
+                \PY{n}{times}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{t}\PY{p}{)}
+                \PY{n}{t} \PY{o}{+}\PY{o}{=} \PY{n}{dt}
+        
+                \PY{n}{I\PYZus{}channels}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{neuron}\PY{o}{.}\PY{n}{sum\PYZus{}I\PYZus{}channels}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+                
+                \PY{c+c1}{\PYZsh{} makes sure the current peak is just a pulse of duration dt}
+                \PY{k}{if} \PY{o+ow}{not} \PY{n}{first\PYZus{}pass}\PY{p}{:} 
+                    \PY{n}{I\PYZus{}peak} \PY{o}{=} \PY{l+m+mf}{0.0}
+                    \PY{n}{first\PYZus{}pass} \PY{o}{==} \PY{k+kc}{True}
+            
+            \PY{k}{return} \PY{n}{recorded\PYZus{}mu}\PY{p}{,} \PY{n}{times}\PY{p}{,} \PY{n}{I\PYZus{}channels}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{recorded\PYZus{}mu}\PY{p}{,} \PY{n}{times}\PY{p}{,} \PY{n}{I\PYZus{}channels} \PY{o}{=} \PY{n}{run\PYZus{}experiment}\PY{p}{(}\PY{l+m+mf}{50.0}\PY{p}{,} \PY{l+m+mf}{100.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{times}\PY{p}{,} \PY{n}{recorded\PYZus{}mu}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{time (ms)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Membrane potential (mV)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{After spike in current of length dt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} plt.plot(times, I\PYZus{}out)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{times}\PY{p}{,} \PY{n}{I\PYZus{}channels}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{time (ms)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Current in Capacitor}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{After spike in current of length dt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_5_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_5_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}403}]:} \PY{c+c1}{\PYZsh{} find period of }
+          \PY{k}{def} \PY{n+nf}{find\PYZus{}period}\PY{p}{(}\PY{n}{recorded\PYZus{}mu}\PY{p}{,} \PY{n}{times}\PY{p}{)}\PY{p}{:}
+              \PY{n}{axis\PYZus{}cross} \PY{o}{=} \PY{l+m+mi}{0}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{recorded\PYZus{}mu}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                  \PY{c+c1}{\PYZsh{} checks if 2 values in a row are of different sign (indicates x\PYZhy{}axis cross)}
+                  \PY{k}{if} \PY{n}{recorded\PYZus{}mu}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{/}\PY{n}{recorded\PYZus{}mu}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mi}{0}\PY{p}{:} 
+                      \PY{n}{axis\PYZus{}cross} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                  \PY{k}{if} \PY{n}{axis\PYZus{}cross} \PY{o}{==} \PY{l+m+mi}{2}\PY{p}{:}
+                      \PY{k}{return} \PY{n}{times}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+              \PY{k}{return} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{times}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+          
+          \PY{k}{def} \PY{n+nf}{diff\PYZus{}2\PYZus{}peaks}\PY{p}{(}\PY{n}{mus1}\PY{p}{,} \PY{n}{mus2}\PY{p}{,} \PY{n}{times}\PY{p}{)}\PY{p}{:}
+              \PY{n}{maxV} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mf}{1.0}
+              \PY{n}{i1} \PY{o}{=} \PY{l+m+mi}{0}
+          \PY{c+c1}{\PYZsh{}     i2 = 0}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{times}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{if} \PY{p}{(}\PY{n}{mus1}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{n}{maxV}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{maxV} \PY{o}{=} \PY{n}{mus1}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+                      \PY{n}{i1} \PY{o}{=} \PY{n}{i}
+                  
+                  \PY{k}{if} \PY{p}{(}\PY{n}{mus2}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{==}\PY{n}{maxV}\PY{p}{)}\PY{p}{:}
+                      \PY{k}{return} \PY{n}{times}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{times}\PY{p}{[}\PY{n}{i1}\PY{p}{]}
+                  
+          \PY{k}{def} \PY{n+nf}{find\PYZus{}period2}\PY{p}{(}\PY{n}{recorded\PYZus{}mu}\PY{p}{,} \PY{n}{times}\PY{p}{)}\PY{p}{:} 
+              \PY{n}{max\PYZus{}val} \PY{o}{=} \PY{n+nb}{max}\PY{p}{(}\PY{n}{recorded\PYZus{}mu}\PY{p}{)}
+              \PY{n}{axis\PYZus{}cross} \PY{o}{=} \PY{k+kc}{False}
+              
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{recorded\PYZus{}mu}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                  \PY{c+c1}{\PYZsh{} checks if 2 values in a row are of different sign (indicates x\PYZhy{}axis cross)}
+                  \PY{k}{if} \PY{n}{recorded\PYZus{}mu}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{/}\PY{n}{recorded\PYZus{}mu}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mi}{0}\PY{p}{:} 
+                      \PY{n}{axis\PYZus{}cross} \PY{o}{=} \PY{k+kc}{True}
+                  \PY{k}{if} \PY{n}{axis\PYZus{}cross}\PY{p}{:}
+          \PY{c+c1}{\PYZsh{}             if abs(recorded\PYZus{}mu[i] \PYZhy{} recorded\PYZus{}mu[i\PYZhy{}1]) \PYZlt{} min\PYZus{}val*10**\PYZhy{}8:}
+                      \PY{k}{if} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{recorded\PYZus{}mu}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{l+m+mf}{1.0e\PYZhy{}3} \PY{o+ow}{and} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{recorded\PYZus{}mu}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{l+m+mf}{1.0e\PYZhy{}3}\PY{p}{:}
+                          \PY{k}{return} \PY{n}{times}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+              \PY{k}{return} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{times}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}369}]:} \PY{n}{capacitances} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{10.0}\PY{p}{,} \PY{n}{num}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}
+          
+          \PY{n}{periods} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{first} \PY{o}{=} \PY{k+kc}{True}
+          \PY{n}{times} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          
+          \PY{k}{for} \PY{n}{C\PYZus{}i} \PY{o+ow}{in} \PY{n}{capacitances}\PY{p}{:}
+              \PY{n}{mus}\PY{p}{,} \PY{n}{t}\PY{p}{,} \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{run\PYZus{}experiment}\PY{p}{(}\PY{l+m+mf}{100.0}\PY{p}{,} \PY{l+m+mf}{100.0}\PY{p}{,} \PY{n}{C\PYZus{}i}\PY{p}{)}
+              \PY{k}{if} \PY{n}{first}\PY{p}{:}
+                  \PY{n}{first} \PY{o}{=} \PY{k+kc}{False} 
+                  \PY{n}{times} \PY{o}{=} \PY{n}{t}
+              \PY{n}{T} \PY{o}{=} \PY{n}{find\PYZus{}period}\PY{p}{(}\PY{n}{mus}\PY{p}{,} \PY{n}{times}\PY{p}{)}
+              \PY{n}{periods}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{T}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}294}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{capacitances}\PY{p}{,} \PY{n}{periods}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Capacitance of the membrane (microF)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Periods of the potential signal (ms)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Linearity between membrane capacitance and message transmission time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Can see linear relation ... Considering neuron fibers of same fiber and
+diameter, capactance directly proportional to length of neuron fiber.
+-\/-\textgreater{} can use the period time as a way of measuring time it
+takes action potential to travel through entire fiber -\/-\textgreater{}
+given know length of fiberm can obtain speed
+
+BUT small irregularities -\/-\textgreater{} will use several values and
+average it out
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}295}]:} \PY{c+c1}{\PYZsh{} Calculate slope from previous data }
+          \PY{n}{slope} \PY{o}{=} \PY{p}{(}\PY{n}{periods}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{periods}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{capacitances}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{capacitances}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{slope}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+4.693684210525902
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}296}]:} \PY{c+c1}{\PYZsh{} Scientifically known numerical values}
+          \PY{n}{diam\PYZus{}fiber} \PY{o}{=} \PY{l+m+mf}{2.0e\PYZhy{}1} \PY{c+c1}{\PYZsh{} cm}
+          \PY{n}{C\PYZus{}per\PYZus{}area} \PY{o}{=} \PY{l+m+mf}{1.0} \PY{c+c1}{\PYZsh{} microF/cm\PYZca{}2}
+          
+          \PY{n}{neuron\PYZus{}length} \PY{o}{=} \PY{l+m+mf}{1.0} \PY{c+c1}{\PYZsh{} cm }
+          \PY{n}{area} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{pi} \PY{o}{*} \PY{n}{diam\PYZus{}fiber} \PY{o}{*} \PY{n}{neuron\PYZus{}length} \PY{c+c1}{\PYZsh{} cm\PYZca{}2}
+          \PY{n}{C} \PY{o}{=} \PY{n}{area} \PY{o}{*} \PY{n}{C\PYZus{}per\PYZus{}area} \PY{c+c1}{\PYZsh{} microF/cm\PYZca{}2}
+          \PY{n}{period\PYZus{}signal} \PY{o}{=} \PY{n}{C} \PY{o}{*} \PY{n}{slope} \PY{c+c1}{\PYZsh{} ms }
+          
+          \PY{n}{speed} \PY{o}{=} \PY{n}{neuron\PYZus{}length} \PY{o}{/} \PY{n}{period\PYZus{}signal} \PY{c+c1}{\PYZsh{} cm / ms}
+          \PY{n}{converted\PYZus{}speed} \PY{o}{=} \PY{n}{speed}\PY{o}{*}\PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{/}\PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3} \PY{c+c1}{\PYZsh{} m/s}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{speed}\PY{p}{,} \PY{n}{converted\PYZus{}speed}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{area}\PY{p}{,} \PY{n}{period\PYZus{}signal}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.3390831934005694 3.3908319340056945
+0.6283185307179586 2.9491287668117163
+
+    \end{Verbatim}
+
+    just make it up
+
+    \subsection{Trying version with the different
+circuits}\label{trying-version-with-the-different-circuits}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}408}]:} \PY{n}{C\PYZus{}per\PYZus{}area} \PY{o}{=} \PY{l+m+mf}{1.0} \PY{c+c1}{\PYZsh{} microF/cm\PYZca{}2}
+          \PY{n}{diam\PYZus{}fiber} \PY{o}{=} \PY{l+m+mf}{1.0e\PYZhy{}0} \PY{c+c1}{\PYZsh{} cm}
+          \PY{n}{neuron\PYZus{}length} \PY{o}{=} \PY{l+m+mf}{10.0} \PY{c+c1}{\PYZsh{} cm }
+          \PY{n}{area} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{pi} \PY{o}{*} \PY{n}{diam\PYZus{}fiber} \PY{o}{*} \PY{n}{neuron\PYZus{}length} \PY{c+c1}{\PYZsh{} cm\PYZca{}2}
+          \PY{n}{C} \PY{o}{=} \PY{n}{area} \PY{o}{*} \PY{n}{C\PYZus{}per\PYZus{}area} \PY{c+c1}{\PYZsh{} microF/cm\PYZca{}2}
+          
+          \PY{n}{I\PYZus{}peak} \PY{o}{=} \PY{l+m+mf}{1.0}
+          
+          \PY{n}{R\PYZus{}cyto\PYZus{}per\PYZus{}L} \PY{o}{=} \PY{l+m+mf}{00.0} \PY{c+c1}{\PYZsh{} ohms/cm}
+          
+          \PY{n}{L\PYZus{}steps} \PY{o}{=} \PY{l+m+mi}{50}
+          \PY{n}{dL} \PY{o}{=} \PY{n}{neuron\PYZus{}length} \PY{o}{/} \PY{n}{L\PYZus{}steps}
+          \PY{n}{dC} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{pi} \PY{o}{*} \PY{n}{diam\PYZus{}fiber} \PY{o}{*} \PY{n}{dL} \PY{o}{*} \PY{n}{C\PYZus{}per\PYZus{}area}
+          
+          \PY{n}{R\PYZus{}L} \PY{o}{=} \PY{n}{neuron\PYZus{}length} \PY{o}{*} \PY{n}{R\PYZus{}cyto\PYZus{}per\PYZus{}L}
+          \PY{n}{dR} \PY{o}{=} \PY{n}{dL} \PY{o}{*} \PY{n}{R\PYZus{}cyto\PYZus{}per\PYZus{}L}
+          
+          \PY{n}{I\PYZus{}central} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{mus\PYZus{}array} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{neurons\PYZus{}array} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          
+          
+          \PY{n}{n} \PY{o}{=} \PY{n}{HHcircuit}\PY{p}{(}\PY{n}{gNa}\PY{p}{,} \PY{n}{gK}\PY{p}{,} \PY{n}{gL}\PY{p}{,} \PY{n}{dC}\PY{p}{,} \PY{n}{mu0}\PY{p}{,} \PY{n}{E\PYZus{}Na}\PY{p}{,} \PY{n}{E\PYZus{}K}\PY{p}{,} \PY{n}{E\PYZus{}L}\PY{p}{)}
+          
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{L\PYZus{}steps}\PY{p}{)}\PY{p}{:} 
+              \PY{n}{neurons\PYZus{}array}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+              \PY{n}{mus\PYZus{}array}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+              \PY{n}{I\PYZus{}central}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+          
+          \PY{n}{I\PYZus{}central}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{I\PYZus{}in}
+          \PY{n}{times} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{T} \PY{o}{=} \PY{l+m+mf}{1.0} \PY{c+c1}{\PYZsh{} ms}
+          \PY{n}{t\PYZus{}steps} \PY{o}{=} \PY{l+m+mi}{100000}
+          \PY{n}{dt} \PY{o}{=} \PY{n}{T} \PY{o}{/} \PY{n}{t\PYZus{}steps}
+          \PY{n}{t} \PY{o}{=} \PY{l+m+mf}{0.0} \PY{c+c1}{\PYZsh{} ms}
+          
+          \PY{n}{I\PYZus{}n50} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+          
+          \PY{n}{count} \PY{o}{=} \PY{l+m+mi}{0}
+          
+          \PY{k}{for} \PY{n}{t\PYZus{}i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{t\PYZus{}steps}\PY{p}{)}\PY{p}{:} 
+              
+              \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{L\PYZus{}steps}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{neuron} \PY{o}{=} \PY{n}{neurons\PYZus{}array}\PY{p}{[}\PY{n}{x}\PY{p}{]}
+          \PY{c+c1}{\PYZsh{}         update HH model coefficients}
+                  \PY{n}{neuron}\PY{o}{.}\PY{n}{update\PYZus{}n}\PY{p}{(}\PY{n}{dt}\PY{p}{)}
+                  \PY{n}{neuron}\PY{o}{.}\PY{n}{update\PYZus{}m}\PY{p}{(}\PY{n}{dt}\PY{p}{)}
+                  \PY{n}{neuron}\PY{o}{.}\PY{n}{update\PYZus{}h}\PY{p}{(}\PY{n}{dt}\PY{p}{)}
+                  \PY{c+c1}{\PYZsh{} Update voltage through Capacitor (membrane)}
+                  \PY{n}{sum\PYZus{}currents} \PY{o}{=} \PY{n}{I\PYZus{}central}\PY{p}{[}\PY{n}{x}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{neuron}\PY{o}{.}\PY{n}{sum\PYZus{}I\PYZus{}channels}\PY{p}{(}\PY{p}{)}
+                  \PY{n}{d\PYZus{}mu} \PY{o}{=} \PY{n}{sum\PYZus{}currents} \PY{o}{/} \PY{n}{neuron}\PY{o}{.}\PY{n}{C} \PY{o}{*} \PY{n}{dt}
+                  \PY{n}{neuron}\PY{o}{.}\PY{n}{mu} \PY{o}{+}\PY{o}{=} \PY{n}{d\PYZus{}mu}
+          
+                  \PY{c+c1}{\PYZsh{} save and update data}
+                  \PY{n}{neurons\PYZus{}array}\PY{p}{[}\PY{n}{x}\PY{p}{]} \PY{o}{=} \PY{n}{neuron}
+                  
+          \PY{c+c1}{\PYZsh{}         neuron.update\PYZus{}n(dt)}
+          \PY{c+c1}{\PYZsh{}         neuron.update\PYZus{}m(dt)}
+          \PY{c+c1}{\PYZsh{}         neuron.update\PYZus{}h(dt)}
+                  
+                  \PY{n}{mus\PYZus{}array}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{neuron}\PY{o}{.}\PY{n}{mu}\PY{p}{)}
+                      
+                  \PY{k}{if} \PY{n}{x}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{:} 
+                      \PY{n}{dV\PYZus{}dx} \PY{o}{=} \PY{l+m+mf}{0.0}
+                      
+                  \PY{k}{else}\PY{p}{:}
+                      \PY{n}{dV\PYZus{}dx} \PY{o}{=} \PY{p}{(}\PY{n}{mus\PYZus{}array}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{mus\PYZus{}array}\PY{p}{[}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{o}{/} \PY{n}{dL}
+                  \PY{n}{I\PYZus{}central}\PY{p}{[}\PY{n}{x}\PY{p}{]} \PY{o}{=} \PY{o}{\PYZhy{}} \PY{n}{dR} \PY{o}{*} \PY{n}{dV\PYZus{}dx}
+                  
+                  \PY{k}{if} \PY{n}{I\PYZus{}central}\PY{p}{[}\PY{n}{x}\PY{p}{]} \PY{o}{==}\PY{l+m+mi}{0}\PY{p}{:}
+                      \PY{n}{count} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                  
+                  \PY{k}{if} \PY{n}{x}\PY{o}{==}\PY{l+m+mi}{50} \PY{o+ow}{and} \PY{n}{t\PYZus{}i}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{:} 
+                      \PY{n}{I\PYZus{}n50}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{dR} \PY{o}{*} \PY{n}{dV\PYZus{}dx}\PY{p}{)}
+                  
+              \PY{n}{times}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{t}\PY{p}{)}
+              \PY{n}{t} \PY{o}{+}\PY{o}{=} \PY{n}{dt}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{count}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+5000000
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}409}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{times}\PY{p}{,} \PY{n}{mus\PYZus{}array}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{times}\PY{p}{,} \PY{n}{mus\PYZus{}array}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}410}]:} \PY{n}{T} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{T2} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{k}{for} \PY{n}{mu} \PY{o+ow}{in} \PY{n}{mus\PYZus{}array}\PY{p}{:}
+              \PY{n}{T}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{find\PYZus{}period}\PY{p}{(}\PY{n}{mu}\PY{p}{,} \PY{n}{times}\PY{p}{)}\PY{p}{)}
+              \PY{n}{T2}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{find\PYZus{}period2}\PY{p}{(}\PY{n}{mu}\PY{p}{,} \PY{n}{times}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{L\PYZus{}steps}\PY{p}{)}\PY{p}{]}\PY{p}{,} \PY{n}{T}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{L\PYZus{}steps}\PY{p}{)}\PY{p}{]}\PY{p}{,} \PY{n}{T2}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}417}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{T}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{T2}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{p}{(}\PY{n}{neuron\PYZus{}length} \PY{o}{\PYZhy{}} \PY{n}{dL}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{T2}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{dL}\PY{o}{/}\PY{n}{T2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{} second one works}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{times}\PY{p}{)}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{mus\PYZus{}array}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[0.377760000000237, 0.377760000000237, 0.377760000000237, 0.377760000000237, 0.377760000000237, 0.377760000000237, 0.377760000000237, 0.377760000000237, 0.377760000000237, 0.377760000000237, 0.377760000000237, 0.377760000000237, 0.377760000000237, 0.377760000000237, 0.377760000000237, 0.377760000000237, 0.377760000000237, 0.377760000000237, 0.377760000000237, 0.377760000000237, 0.377760000000237, 0.377760000000237, 0.377760000000237, 0.377760000000237, 0.377760000000237, 0.377760000000237, 0.377760000000237, 0.377750000000237, 0.377750000000237, 0.377750000000237, 0.377750000000237, 0.377750000000237, 0.377750000000237, 0.377750000000237, 0.377750000000237, 0.377750000000237, 0.377750000000237, 0.377750000000237, 0.377750000000237, 0.377750000000237, 0.377750000000237, 0.377750000000237, 0.377750000000237, 0.377750000000237, 0.377750000000237, 0.377750000000237, 0.377750000000237, 0.377750000000237, 0.377750000000237, 0.377750000000237]
+[0.37768000000023694, 0.37768000000023694, 0.37768000000023694, 0.37768000000023694, 0.37768000000023694, 0.37768000000023694, 0.37768000000023694, 0.37768000000023694, 0.37768000000023694, 0.37768000000023694, 0.37768000000023694, 0.37768000000023694, 0.37768000000023694, 0.37768000000023694, 0.37768000000023694, 0.37768000000023694, 0.37768000000023694, 0.37768000000023694, 0.37768000000023694, 0.37768000000023694, 0.37768000000023694, 0.37768000000023694, 0.3776700000002369, 0.3776700000002369, 0.3776700000002369, 0.3776700000002369, 0.3776700000002369, 0.3776700000002369, 0.3776700000002369, 0.3776700000002369, 0.3776700000002369, 0.3776700000002369, 0.3776700000002369, 0.3776700000002369, 0.3776700000002369, 0.3776700000002369, 0.3776700000002369, 0.3776700000002369, 0.3776700000002369, 0.3776700000002369, 0.3776700000002369, 0.3776700000002369, 0.3776700000002369, 0.3776700000002369, 0.3776700000002369, 0.3776700000002369, 0.3776700000002369, 0.3776700000002369, 0.3776700000002369, 0.3776700000002369]
+25.948579447649674 0.5295488244012776
+100000 100000
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}412}]:} \PY{c+c1}{\PYZsh{} print(mus\PYZus{}array[0])}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{T}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{dL}\PY{o}{/}\PY{n}{T}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+          \PY{n}{speed} \PY{o}{=} \PY{n}{neuron\PYZus{}length} \PY{o}{/} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{T}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{speed}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{speed}\PY{o}{*}\PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2} \PY{o}{/} \PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.377760000000237
+0.5294366793728148
+0.5294431264248627
+5.294431264248627
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}325}]:} \PY{n}{diff} \PY{o}{=} \PY{n}{diff\PYZus{}2\PYZus{}peaks}\PY{p}{(}\PY{n}{mus\PYZus{}array}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{mus\PYZus{}array}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{times}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{diff}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} T2 = find\PYZus{}period2(mus\PYZus{}array[0], mus\PYZus{}array[\PYZhy{}1], times)}
+          \PY{n}{T2} \PY{o}{=} \PY{n}{find\PYZus{}period}\PY{p}{(}\PY{p}{)}
+          \PY{n}{speed2} \PY{o}{=} \PY{n}{neuron\PYZus{}length} \PY{o}{/} \PY{n}{T2}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{speed2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+None
+206.39834881319175
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}314}]:} \PY{n}{t} \PY{o}{=} \PY{l+m+mi}{0}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{mus\PYZus{}array}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{t}\PY{p}{]}\PY{p}{,} \PY{n}{mus\PYZus{}array}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{n}{t}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.0004691887722349076 0.00048364849557543685
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
